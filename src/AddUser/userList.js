@@ -7,17 +7,17 @@ function userList(props) {
     console.log('UserList props', props)
     console.log(props.userData);
 
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure! you want to delete')) {
+            return props.dispatch(deleteUser(id))
+        }
+    }
+    const handleUpdate = (item) => {
+        props.history.push('/add_user')
+        props.history.location.state = item
+        console.log(props)
+    }
     const Data = props.userData.map((item, index) => {
-        const handleDelete = () => {
-            if (window.confirm('Are you sure! you want to delete')) {
-                return props.dispatch(deleteUser(item.id))
-            }
-        }
-        const handleUpdate = () => {
-            props.history.push('/add_user')
-            props.history.location.state = item
-            console.log(props)
-        }
         return (
             <tr key={index}>
                 <td>{index + 1}</td>
@@ -28,8 +28,8 @@ function userList(props) {
                 <td>{item.email}</td>
                 <td>
                     <div className="btn-group">
-                        <button className="btn btn-sm btn-success" onClick={handleUpdate}> Update</button>
-                        <button className="btn btn-sm btn-danger" onClick={handleDelete}> Delete</button>
+                        <button className="btn btn-sm btn-success" onClick={() => {handleUpdate(item)}}> Update</button>
+                        <button className="btn btn-sm btn-danger" onClick={() => {handleDelete(item.id)}}> Delete</button>
                     </div>
                 </td>
             </tr>
