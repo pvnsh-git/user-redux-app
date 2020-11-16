@@ -44,12 +44,13 @@ class AddUser extends Component {
     }
     }
     render() {
+        let updateUser = (this.props.history.location.state !== undefined)? true : false
         console.log('addUser', this.props.history)
         return (
             <div className="d-flex justify-content-center">
                 <form className="w-75" onSubmit={this.handleSubmit}>
                     <fieldset>
-                        <legend className='text-center'>personalia</legend>
+        <legend className='text-center'>{updateUser ? `Update User` : `Add User`}</legend>
                         <div className="row">
                             <div className="col form-group">
                                 <label htmlFor="fname">First Name</label>
@@ -76,7 +77,7 @@ class AddUser extends Component {
                         </div>
                         <label htmlFor="email" className=" form-group">Email</label>
                         <input type="email" id="email" name='email' onChange={this.handleUserData} value={this.state.email} className="form-control" />
-                        <input type='submit' className="btn btn-primary btn-block mt-3" />
+        <button type='submit' className="btn btn-primary btn-block mt-3" >{updateUser ? `Update` : `Add`}</button>
                     </fieldset>
                 </form>
             </div>
