@@ -27,10 +27,8 @@ function userList(props) {
                 <td>{item.dob}</td>
                 <td>{item.email}</td>
                 <td>
-                    <div className="btn-group">
-                        <button className="btn btn-sm btn-success" onClick={() => {handleUpdate(item)}}> Update</button>
-                        <button className="btn btn-sm btn-danger" onClick={() => {handleDelete(item.id)}}> Delete</button>
-                    </div>
+                    <button className="btn btn-sm  text-dark btn-outline-warning" onClick={() => { handleUpdate(item) }}> Update</button>
+                    <button className="btn btn-sm btn-danger  ml-2" onClick={() => { handleDelete(item.id) }}> Delete</button>
                 </td>
             </tr>
         )
