@@ -15,9 +15,10 @@ export const deleteUser = function(id){
         id
     }
 }
-export const updateUser = function(id){
+export const updateUser = function(updateInput,id){
     return {
         type: UPDATE_USER,
+        updateInput,
         id
     }
 }

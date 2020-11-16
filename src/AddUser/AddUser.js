@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { userAction } from './redux/Action/userAction'
+import { updateUser, userAction } from './redux/Action/userAction'
 
 class AddUser extends Component {
     constructor(props) {
@@ -29,33 +29,38 @@ class AddUser extends Component {
             email: ''
         })
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log(this.props.history.location.state)
-        if(this.props.history.location.state !== undefined){
+        if (this.props.history.location.state !== undefined) {
             console.log('inside if')
-        let { fname, lname, gender, dob, email} = this.props.history.location.state
-        this.setState({
-            fname,
-            lname,
-            gender,
-            dob,
-            email
-        })
+            let { fname, lname, gender, dob, email } = this.props.history.location.state
+            this.setState({
+                fname,
+                lname,
+                gender,
+                dob,
+                email
+            })
+        }
     }
+    handleUpdate = (event) => {
+        event.preventDefault();
+        let id = this.props.history.location.state.id
+        this.props.dispatch(updateUser(this.state,id))
     }
     render() {
-        let updateUser = (this.props.history.location.state !== undefined)? true : false
+        let updateUser = (this.props.history.location.state !== undefined) ? true : false
         console.log('addUser', this.props.history)
         return (
             <div className="d-flex justify-content-center">
-                <form className="w-75" onSubmit={this.handleSubmit}>
+                <form className="w-75" onSubmit={updateUser ? this.handleUpdate : this.handleSubmit}>
                     <fieldset>
-        <legend className='text-center'>{updateUser ? `Update User` : `Add User`}</legend>
+                        <legend className='text-center'>{updateUser ? `Update User` : `Add User`}</legend>
                         <div className="row">
                             <div className="col form-group">
                                 <label htmlFor="fname">First Name</label>
                                 <input type="text" id="fname" name='fname' onChange={this.handleUserData}
-                                    value= {this.state.fname} className="form-control" />
+                                    value={this.state.fname} className="form-control" />
                             </div>
                             <div className="col form-group">
                                 <label htmlFor="lname">Last Name</label>
@@ -77,7 +82,7 @@ class AddUser extends Component {
                         </div>
                         <label htmlFor="email" className=" form-group">Email</label>
                         <input type="email" id="email" name='email' onChange={this.handleUserData} value={this.state.email} className="form-control" />
-        <button type='submit' className="btn btn-primary btn-block mt-3" >{updateUser ? `Update` : `Add`}</button>
+                        <button type='submit' className="btn btn-primary btn-block mt-3" >{updateUser ? `Update` : `Add`}</button>
                     </fieldset>
                 </form>
             </div>

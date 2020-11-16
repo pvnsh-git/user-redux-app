@@ -23,11 +23,12 @@ export const userReducer = (state = initialState, action) => {
             })
             return newState
         case UPDATE_USER:
-            const updatedState = state.map((item) => {
+            let updatedState = state.map((item) => {
+                console.log(action.id,item.id)
                 if(item.id === action.id){
                     return {
                         ...item,
-                        update: true
+                        ...action.updateInput
                     }  
                 }else return item
             })
